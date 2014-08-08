@@ -1,0 +1,19 @@
+{
+    "name": "jfusion/plugin-dokuwiki",
+    "type": "jfusion-plugin-dokuwiki",
+    "description": "Plugin for dokuwiki jfusion framework",
+    "keywords": ["jfusion", "plugin", "dokuwiki", "framework"],
+    "homepage": "https://github.com/jfusion/org.jfusion.plugin.dokuwiki",
+    "license": "GPL-2.0+",
+    "require": {
+        "php": ">=5.3.10"
+    },
+    "require-dev": {
+        "jfusion/framework": "~1"
+    },
+    "autoload": {
+        "psr-4": {
+            "JFusion\\Plugins\\dokuwiki": "src/"
+        }
+    }
+}
