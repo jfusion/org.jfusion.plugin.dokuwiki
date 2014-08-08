@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-4": {
-            "JFusion\\Plugins\\dokuwiki\\": "src/"
+            "JFusion\\Plugins\\dokuwiki\\": "."
         }
     }
 }
