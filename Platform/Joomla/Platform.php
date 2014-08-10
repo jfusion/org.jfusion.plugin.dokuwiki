@@ -1,12 +1,8 @@
 <?php namespace JFusion\Plugins\dokuwiki\Platform\Joomla;
-
 /**
- * 
- * PHP version 5
- * 
- * @category   JFusion
- * @package    JFusionPlugins
- * @subpackage JoomlaExt 
+ * @category   Plugins
+ * @package    JFusion\Plugins
+ * @subpackage dokuwiki
  * @author     JFusion Team <webmaster@jfusion.org>
  * @copyright  2008 JFusion. All rights reserved.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -21,6 +17,7 @@ use JFusion\Plugins\dokuwiki\Helper;
 
 use Joomla\Language\Text;
 use Joomla\Uri\Uri;
+
 use Psr\Log\LogLevel;
 
 use JFile;
@@ -32,12 +29,12 @@ use JText;
 use stdClass;
 
 /**
- * JFusion Authentication Class for an external Joomla database
- * For detailed descriptions on these functions please check the model.abstractauth.php
- * 
- * @category   JFusion
- * @package    JFusionPlugins
- * @subpackage Joomla_ext
+ * JFusion Platform Class for an external Joomla database
+ * For detailed descriptions on these functions please check the Platform
+ *
+ * @category   Plugins
+ * @package    JFusion\Plugins
+ * @subpackage dokuwiki
  * @author     JFusion Team <webmaster@jfusion.org>
  * @copyright  2008 JFusion. All rights reserved.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -87,7 +84,7 @@ class Platform extends Joomla
 			$rows[$pos]->created = $search->getPageModifiedDateTime($key);
 			//dokuwiki doesn't track hits
 			$rows[$pos]->hits = 0;
-			$rows[$pos]->href = \JFusionFunction::routeURL(str_replace(':', ';', $this->getSearchResultLink($key)), $itemid);
+			$rows[$pos]->href = JFusionFunction::routeURL(str_replace(':', ';', $this->getSearchResultLink($key)), $itemid);
 			$rows[$pos]->section = JText::_($key);
 			$pos++;
 		}
@@ -662,7 +659,7 @@ PHP;
 			} else {
 				$sefmode = $this->params->get('sefmode');
 				if ($sefmode == 1) {
-					$url = Factory::getApplication()->routeURL($url, Factory::getApplication()->input->getInt('Itemid'));
+					$url = JFusionFunction::routeURL($url, Factory::getApplication()->input->getInt('Itemid'));
 				} else {
 					//we can just append both variables
 					$url = $this->data->baseURL . $url;

@@ -1,13 +1,9 @@
 <?php namespace JFusion\Plugins\dokuwiki;
 
 /**
- * file containing auth function for the jfusion plugin
- *
- * PHP version 5
- *
- * @category   JFusion
- * @package    JFusionPlugins
- * @subpackage DokuWiki 
+ * @category   Plugins
+ * @package    JFusion\Plugins
+ * @subpackage dokuwiki
  * @author     JFusion Team <webmaster@jfusion.org>
  * @copyright  2008 JFusion. All rights reserved.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -20,9 +16,9 @@ use JFusion\User\Userinfo;
 /**
  * JFusion auth plugin class
  *
- * @category   JFusion
- * @package    JFusionPlugins
- * @subpackage DokuWiki 
+ * @category   Plugins
+ * @package    JFusion\Plugins
+ * @subpackage dokuwiki
  * @author     JFusion Team <webmaster@jfusion.org>
  * @copyright  2008 JFusion. All rights reserved.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL

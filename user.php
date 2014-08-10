@@ -1,13 +1,9 @@
 <?php namespace JFusion\Plugins\dokuwiki;
 
 /**
- * file containing administrator function for the jfusion plugin
- *
- * PHP version 5
- *
- * @category   JFusion
- * @package    JFusionPlugins
- * @subpackage DokuWiki
+ * @category   Plugins
+ * @package    JFusion\Plugins
+ * @subpackage dokuwiki
  * @author     JFusion Team <webmaster@jfusion.org>
  * @copyright  2008 JFusion. All rights reserved.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
@@ -17,18 +13,21 @@
 use JFusion\Framework;
 use JFusion\Plugin\Plugin_User;
 use JFusion\User\Userinfo;
+
 use Joomla\Language\Text;
-use \Exception;
+
 use Psr\Log\LogLevel;
+
+use \Exception;
 use \RuntimeException;
 use \stdClass;
 
 /**
  * JFusion user class for DokuWiki
  *
- * @category   JFusion
- * @package    JFusionPlugins
- * @subpackage DokuWiki
+ * @category   Plugins
+ * @package    JFusion\Plugins
+ * @subpackage dokuwiki
  * @author     JFusion Team <webmaster@jfusion.org>
  * @copyright  2008 JFusion. All rights reserved.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL

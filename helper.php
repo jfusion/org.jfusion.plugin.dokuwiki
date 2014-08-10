@@ -1,27 +1,25 @@
 <?php namespace JFusion\Plugins\dokuwiki;
 
 /**
- *
- * PHP version 5
- *
- * @category   JFusion
- * @package    JFusionPlugins
- * @subpackage Dokuwiki
+ * @category   Plugins
+ * @package    JFusion\Plugins
+ * @subpackage dokuwiki
  * @author     JFusion Team <webmaster@jfusion.org>
  * @copyright  2008 JFusion. All rights reserved.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL
  * @link       http://www.jfusion.org
  */
 
-use JFile;
 use JFusion\Plugin\Plugin;
+
+use JFile;
 
 /**
  * JFusion Helper Class for Dokuwiki
  *
- * @category   JFusion
- * @package    JFusionPlugins
- * @subpackage Dokuwiki
+ * @category   Plugins
+ * @package    JFusion\Plugins
+ * @subpackage dokuwiki
  * @author     JFusion Team <webmaster@jfusion.org>
  * @copyright  2008 JFusion. All rights reserved.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU/GPL

@@ -10,7 +10,7 @@
     },
     "require-dev": {
         "jfusion/framework": "~1",
-        "jfusion/platform-joomla": "~1.0.0"
+        "jfusion/platform-joomla": "~1"
     },
     "autoload": {
         "psr-4": {
