@@ -1,4 +1,4 @@
-<?php namespace JFusion\Plugins\dokuwiki;
+<?php namespace JFusion\Plugins\dokuwiki\Auth;
 /**
  * The Cipher_blowfish:: class implements the Cipher interface encryption data
  * using the Blowfish algorithm.
@@ -19,7 +19,7 @@
 /**
  * Class Auth_Blowfish
  */
-class Auth_Blowfish
+class Blowfish
 {
 	/* Pi Array */
 	var $p = array(

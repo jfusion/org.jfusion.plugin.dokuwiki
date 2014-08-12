@@ -1,4 +1,4 @@
-<?php namespace JFusion\Plugins\dokuwiki;
+<?php namespace JFusion\Plugins\dokuwiki\Auth;
 
 /**
  * Plaintext authentication backend
@@ -9,12 +9,14 @@
  * @author     Jan Schumann <js@schumann-it.com>
  */
 use JFusion\Framework;
+use JFusion\Plugins\dokuwiki\Helper;
+
 use Psr\Log\LogLevel;
 
 /**
  * Class Auth_Plain
  */
-class Auth_Plain extends Auth_Basic {
+class Plain extends Basic {
 	/** @var array user cache */
 	protected $users = null;
 

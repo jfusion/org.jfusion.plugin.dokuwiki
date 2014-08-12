@@ -1,4 +1,4 @@
-<?php namespace JFusion\Plugins\dokuwiki;
+<?php namespace JFusion\Plugins\dokuwiki\Auth;
 
 /**
  * Auth Plugin Prototype
@@ -11,12 +11,13 @@
  * @author     Jan Schumann <js@jschumann-it.com>
  */
 use JFusion\Framework;
-use Psr\Log\LogLevel;
+use JFusion\Plugins\dokuwiki\Helper;
 
+use Psr\Log\LogLevel;
 /**
  * Class Basic
  */
-class Auth_Basic {
+class Basic {
 	/**
 	 * @var Helper $helper
 	 */

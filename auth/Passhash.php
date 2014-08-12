@@ -1,4 +1,4 @@
-<?php namespace JFusion\Plugins\dokuwiki;
+<?php namespace JFusion\Plugins\dokuwiki\Auth;
 
 /**
  * Password Hashing Class
@@ -13,7 +13,7 @@ use RuntimeException;
 /**
  * Class Auth_PassHash
  */
-class Auth_PassHash {
+class PassHash {
 	/**
 	 * Verifies a cleartext password against a crypted hash
 	 *

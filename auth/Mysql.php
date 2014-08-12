@@ -1,4 +1,4 @@
-<?php namespace JFusion\Plugins\dokuwiki;
+<?php namespace JFusion\Plugins\dokuwiki\Auth;
 
 /**
  * MySQL authentication backend
@@ -10,12 +10,14 @@
  * @author     Jan Schumann <js@schumann-it.com>
  */
 use JFusion\Framework;
+use JFusion\Plugins\dokuwiki\Helper;
+
 use Psr\Log\LogLevel;
 
 /**
  * Class Jfusion_DokuWiki_Mysql
  */
-class Auth_Mysql extends Auth_Basic {
+class Mysql extends Basic {
 	/** @var resource holds the database connection */
 	protected $dbcon = 0;
 	/** @var int database version*/
