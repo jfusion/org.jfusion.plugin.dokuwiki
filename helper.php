@@ -54,9 +54,6 @@ class Helper extends Plugin
 	    }
 
 	    if (!$this->auth) {
-		    if (!class_exists('Jfusion_DokuWiki_Basic')) {
-			    require_once('auth' . DIRECTORY_SEPARATOR . 'basic.class.php');
-		    }
 		    $this->auth = new Basic($this);
 	    }
     }
@@ -101,10 +98,10 @@ class Helper extends Plugin
             $source_path = $this->params->get('source_path');
 
             $conf = $this->getConf();
-            $data_dir = (isset($conf['savedir'])) ? $source_path . DIRECTORY_SEPARATOR . $conf['savedir'] : $source_path . DIRECTORY_SEPARATOR . 'data';
+            $data_dir = (isset($conf['savedir'])) ? $source_path . '/' . $conf['savedir'] : $source_path . '/data';
 
             //get the cookie salt file
-            $saltfile = $data_dir . DIRECTORY_SEPARATOR . 'meta' . DIRECTORY_SEPARATOR . '_htcookiesalt';
+            $saltfile = $data_dir . '/meta/_htcookiesalt';
             jimport('joomla.filesystem.file');
             $dokuwiki_cookie_salt = file_get_contents($saltfile);
             if(empty($dokuwiki_cookie_salt)){
@@ -156,11 +153,11 @@ class Helper extends Plugin
 		    }
 
 		    //standard config path
-		    $config_path = $path . 'conf' . DIRECTORY_SEPARATOR;
+		    $config_path = $path . 'conf/';
 
 		    //check to see if conf directory is located somewhere else
-		    if (file_exists($path  . 'inc' . DIRECTORY_SEPARATOR . 'preload.php')) {
-			    include_once $path  . 'inc' . DIRECTORY_SEPARATOR . 'preload.php';
+		    if (file_exists($path  . 'inc/preload.php')) {
+			    include_once $path  . 'inc/preload.php';
 			    if (defined('DOKU_CONF')) {
 				    $config_path = DOKU_CONF;
 				    //make sure we have a ending DIRECTORY_SEPARATOR

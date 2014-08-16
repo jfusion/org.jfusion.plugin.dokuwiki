@@ -952,7 +952,7 @@ class Mysql extends Basic {
 	 * @return    array    setting => value
 	 */
 	function readDefaultSettings() {
-		$path = $this->helper->params->get('source_path') . 'authmysql' . DIRECTORY_SEPARATOR . 'conf' . DIRECTORY_SEPARATOR;
+		$path = $this->helper->params->get('source_path') . 'authmysql/conf/';
 		$conf = array();
 
 		if (file_exists($path . 'default.php')) {

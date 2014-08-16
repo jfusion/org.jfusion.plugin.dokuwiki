@@ -33,12 +33,7 @@ class Plain extends Basic {
 	public function __construct($helper) {
 		parent::__construct($helper);
 
-		$this->file = $this->helper->params->get('source_path');
-		if (substr($this->file, -1) == DIRECTORY_SEPARATOR) {
-			$this->file = $this->file . 'conf/users.auth.php';
-		} else {
-			$this->file = $this->file . DIRECTORY_SEPARATOR . 'conf/users.auth.php';
-		}
+		$this->file =  $this->helper->params->get('source_path') . 'conf/users.auth.php';
 	}
 
 	/**

@@ -37,10 +37,6 @@ class Search
 		 */
 		$helper = Factory::getHelper($instance);
 		$this->path = $helper->params->get('source_path');
-		if (substr($this->path, -1) != DIRECTORY_SEPARATOR) {
-			$this->path .= DIRECTORY_SEPARATOR;
-		}
-
 		$this->conf = $helper->getConf($this->path);
 	}
 	/**
@@ -599,7 +595,7 @@ class Search
 	 * @return string
 	 */
 	function getPage($page) {
-		$file = $this->path . 'data' . DIRECTORY_SEPARATOR . 'pages' . DIRECTORY_SEPARATOR . str_replace(':', DIRECTORY_SEPARATOR, $page) . '.txt';
+		$file = $this->path . 'data/pages/' . str_replace(':', DIRECTORY_SEPARATOR, $page) . '.txt';
 		$text = '';
 		if (file_exists($file)) {
 			$handle = fopen($file, "r");
@@ -617,7 +613,7 @@ class Search
 	 */
 	function getPageModifiedDateTime($page) {
 		$datetime = '';
-		$file = $this->path . 'data' . DIRECTORY_SEPARATOR . 'pages' . DIRECTORY_SEPARATOR . str_replace(':', DIRECTORY_SEPARATOR, $page) . '.txt';
+		$file = $this->path . 'data/pages/' . str_replace(':', DIRECTORY_SEPARATOR, $page) . '.txt';
 		if (file_exists($file)) {
 			$datetime = date ('Y-m-d h:i:s', filemtime($file));
 		}
