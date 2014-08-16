@@ -16,6 +16,7 @@ use JFusion\Plugins\dokuwiki\Search;
 use JFusion\Plugins\dokuwiki\Helper;
 
 use Joomla\Language\Text;
+use Joomla\Registry\Registry;
 use Joomla\Uri\Uri;
 
 use Psr\Log\LogLevel;
@@ -23,7 +24,6 @@ use Psr\Log\LogLevel;
 use JFile;
 use JFolder;
 use JPath;
-use JRegistry;
 use JText;
 
 use stdClass;
@@ -54,7 +54,7 @@ class Platform extends Joomla
 	 * Retrieves the search results to be displayed.  Placed here so that plugins that do not use the database can retrieve and return results
 	 * @param string &$text string text to be searched
 	 * @param string &$phrase string how the search should be performed exact, all, or any
-	 * @param JRegistry &$pluginParam custom plugin parameters in search.xml
+	 * @param Registry &$pluginParam custom plugin parameters in search.xml
 	 * @param int $itemid what menu item to use when creating the URL
 	 * @param string $ordering
 	 *
@@ -68,7 +68,7 @@ class Platform extends Joomla
 	 * $result->browsernav = 1 opens link in a new window, 2 opens in the same window
 	 * $result->created = (optional) date when the content was created
 	 */
-	function getSearchResults(&$text, &$phrase, JRegistry &$pluginParam, $itemid, $ordering) {
+	function getSearchResults(&$text, &$phrase, Registry &$pluginParam, $itemid, $ordering) {
 		$highlights = array();
 		$search = new Search($this->getJname());
 		$results = $search->ft_pageSearch($text, $highlights);
