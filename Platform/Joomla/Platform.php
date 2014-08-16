@@ -266,13 +266,13 @@ HTML;
 
 		$conf = $this->helper->getConf();
 		$source_path = $this->params->get('source_path');
-		$plugindir = $source_path . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'plugins';
+		$plugindir = $source_path . '/lib/plugins';
 
 		//check to see if plugin installed and config options available
 		jimport('joomla.filesystem.folder');
 
 
-		if (!is_dir(JPath::clean($plugindir . DIRECTORY_SEPARATOR . 'jfusion')) || empty($conf['jfusion'])) {
+		if (!is_dir(JPath::clean($plugindir . '/jfusion')) || empty($conf['jfusion'])) {
 			$error = 1;
 			$reason = Text::_('MOD_NOT_ENABLED');
 		}
@@ -312,7 +312,7 @@ HTML;
 			case 'reenable':
 			case 'disable':
 				$source_path = $this->params->get('source_path');
-				$plugindir = $source_path . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'plugins' . DIRECTORY_SEPARATOR . 'jfusion';
+				$plugindir = $source_path . '/lib/plugins/jfusion';
 
 				jimport('joomla.filesystem.folder');
 				jimport('joomla.filesystem.file');
@@ -345,8 +345,8 @@ HTML;
 				}
 			case 'enable':
 				$source_path = $this->params->get('source_path');
-				$plugindir = $source_path . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'plugins' . DIRECTORY_SEPARATOR . 'jfusion';
-				$pluginsource = JFUSION_PLUGIN_PATH . DIRECTORY_SEPARATOR . 'dokuwiki' . DIRECTORY_SEPARATOR . 'jfusion';
+				$plugindir = $source_path . '/lib/plugins/jfusion';
+				$pluginsource = __DIR__ . '/Platform/Joomla/jfusion';
 
 				//copy the jfusion plugin to Dokuwiki plugin directory
 				jimport('joomla.filesystem.folder');
@@ -432,10 +432,6 @@ PHP;
 		// Get the path
 		$source_path = $this->params->get('source_path');
 
-		if (substr($source_path, -1) != DIRECTORY_SEPARATOR) {
-			$source_path .= DIRECTORY_SEPARATOR;
-		}
-
 		//setup constants needed by Dokuwiki
 		$this->helper->defineConstants();
 
@@ -461,17 +457,17 @@ PHP;
 			}
 		}
 		$index_file = $source_path . 'doku.php';
-		if ($mainframe->input->get('jfile') == 'detail.php') $index_file = $source_path . 'lib' . DIRECTORY_SEPARATOR . 'exe' . DIRECTORY_SEPARATOR . 'detail.php';
+		if ($mainframe->input->get('jfile') == 'detail.php') $index_file = $source_path . 'lib/exe/detail.php';
 
 		if ($mainframe->input->get('media')) $mainframe->input->set('media', str_replace(':', '-', $mainframe->input->get('media')));
-		require_once JPATH_LIBRARIES . DIRECTORY_SEPARATOR . 'phputf8' . DIRECTORY_SEPARATOR . 'mbstring' . DIRECTORY_SEPARATOR . 'core.php';
+		require_once JPATH_LIBRARIES . '/phputf8/mbstring/core.php';
 
 		define('DOKU_INC', $source_path);
 		$hooks = Factory::getPlayform($data->platform, $this->getJname())->hasFile('hooks.php');
 
 		if ($hooks) {
-			require_once $source_path . 'inc' . DIRECTORY_SEPARATOR . 'events.php';
-			require_once $source_path . 'inc' . DIRECTORY_SEPARATOR . 'init.php';
+			require_once $source_path . 'inc/events.php';
+			require_once $source_path . 'inc/init.php';
 
 			require_once $hooks;
 
