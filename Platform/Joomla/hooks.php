@@ -1,4 +1,4 @@
-<?php
+<?php namespace JFusion\Plugins\dokuwiki\Platform\Joomla;
 
 /**
  * file containing hook function for dokuwiki
