@@ -17,12 +17,17 @@
         "php": ">=5.3.10"
     },
     "require-dev": {
-        "jfusion/framework": "~1",
-        "jfusion/platform-joomla": "~1"
+        "jfusion/framework": "dev-master",
+        "jfusion/platform-joomla": "dev-master"
     },
     "autoload": {
         "psr-4": {
             "JFusion\\Plugins\\dokuwiki\\": "."
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "JFusion\\Plugins\\dokuwiki\\tests\\": ".Tests"
         }
     }
 }
