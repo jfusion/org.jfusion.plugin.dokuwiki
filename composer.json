@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "JFusion\\Plugins\\dokuwiki\\": "."
+            "JFusion\\Plugins\\dokuwiki\\": "src/"
         }
     },
     "autoload-dev": {
