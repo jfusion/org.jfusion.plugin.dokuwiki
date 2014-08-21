@@ -69,8 +69,7 @@ class Basic {
 	 * @return bool
 	 */
 	function verifyPassword($clear, $crypt) {
-		require_once 'passhash.class.php';
-		$pass = new Auth_PassHash();
+		$pass = new PassHash();
 		return $pass->verify_hash($clear, $crypt);
 	}
 
@@ -223,8 +222,7 @@ class Basic {
 		$conf = $this->helper->getConf();
 		if(empty($method)) $method = $conf['passcrypt'];
 
-		require_once 'passhash.class.php';
-		$pass = new Auth_PassHash();
+		$pass = new PassHash();
 		$call = 'hash_' . $method;
 
 		if(!method_exists($pass, $call)) {
