@@ -9,12 +9,14 @@
  * @link       http://www.jfusion.org
  */
 
+use JFusion\Application\Application;
 use JFusion\Factory;
 use JFusion\Framework;
 use JFusion\Plugin\Platform\Joomla;
 use JFusion\Plugins\dokuwiki\Search;
 use JFusion\Plugins\dokuwiki\Helper;
 
+use JFusion\Session\Session;
 use Joomla\Filesystem\File;
 use Joomla\Filesystem\Folder;
 use Joomla\Filesystem\Path;
@@ -420,14 +422,14 @@ PHP;
 		//setup constants needed by Dokuwiki
 		$this->helper->defineConstants();
 
-		$mainframe = Factory::getApplication();
+		$mainframe = Application::getInstance();
 
 		$do = $mainframe->input->get('do');
 		if ($do == 'logout') {
 			// logout any joomla users
 			$mainframe->logout();
 			//clean up session
-			$session = Factory::getSession();
+			$session = Session::getInstance();
 			$session->close();
 			$session->restart();
 		} else if ($do == 'login') {
@@ -635,7 +637,7 @@ PHP;
 			} else {
 				$sefmode = $this->params->get('sefmode');
 				if ($sefmode == 1) {
-					$url = JFusionFunction::routeURL($url, Factory::getApplication()->input->getInt('Itemid'));
+					$url = JFusionFunction::routeURL($url, Application::getInstance()->input->getInt('Itemid'));
 				} else {
 					//we can just append both variables
 					$url = $this->data->baseURL . $url;
@@ -661,7 +663,7 @@ PHP;
 	function replaceForm(&$data) {
 		$pattern = '#<form(.*?)action=["\'](.*?)["\'](.*?)>(.*?)</form>#mSsi';
 		$getData = '';
-		$mainframe = Factory::getApplication();
+		$mainframe = Application::getInstance();
 		if ($mainframe->input->getInt('Itemid')) $getData.= '<input name="Itemid" value="' . $mainframe->input->getInt('Itemid') . '" type="hidden"/>';
 		if ($mainframe->input->get('option')) $getData.= '<input name="option" value="' . $mainframe->input->get('option') . '" type="hidden"/>';
 		if ($mainframe->input->get('jname')) $getData.= '<input name="jname" value="' . $mainframe->input->get('jname') . '" type="hidden"/>';
@@ -684,7 +686,7 @@ PHP;
 	 */
 	function getPathWay() {
 		$pathway = array();
-		$mainframe = Factory::getApplication();
+		$mainframe = Application::getInstance();
 		if ($mainframe->input->get('id')) {
 			$bread = explode(';', $mainframe->input->get('id'));
 			$url = '';
