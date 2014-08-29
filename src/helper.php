@@ -17,6 +17,7 @@ use \JFusion\Plugins\dokuwiki\Auth\Plain;
 use \JFusion\Plugins\dokuwiki\Auth\Basic;
 
 use JFile;
+use Joomla\Filesystem\File;
 
 /**
  * JFusion Helper Class for Dokuwiki
@@ -102,11 +103,11 @@ class Helper extends Plugin
 
             //get the cookie salt file
             $saltfile = $data_dir . '/meta/_htcookiesalt';
-            jimport('joomla.filesystem.file');
+
             $dokuwiki_cookie_salt = file_get_contents($saltfile);
             if(empty($dokuwiki_cookie_salt)){
                 $dokuwiki_cookie_salt = uniqid(rand(), true);
-                JFile::write($saltfile, $dokuwiki_cookie_salt);
+                File::write($saltfile, $dokuwiki_cookie_salt);
             }
         }
         return $dokuwiki_cookie_salt;
@@ -126,7 +127,6 @@ class Helper extends Plugin
         if (empty($dokuwiki_version)) {
             $source_path = $this->params->get('source_path');
 
-            jimport('joomla.filesystem.file');
             $file_version = file_get_contents($source_path . 'VERSION');
             $matches = array();
             if (preg_match('#([a-z]*)([0-9]*-[0-9]*-[0-9]*)([a-z]*)#is', $file_version, $matches)) {
