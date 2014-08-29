@@ -12,11 +12,11 @@
 
 use JFusion\Plugin\Plugin;
 
+use JFusion\Plugins\dokuwiki\Auth\Blowfish;
 use \JFusion\Plugins\dokuwiki\Auth\Mysql;
 use \JFusion\Plugins\dokuwiki\Auth\Plain;
 use \JFusion\Plugins\dokuwiki\Auth\Basic;
 
-use JFile;
 use Joomla\Filesystem\File;
 
 /**
@@ -33,7 +33,7 @@ use Joomla\Filesystem\File;
 class Helper extends Plugin
 {
     /**
-     * @var Auth_Basic|Auth_Plain|Auth_Mysql
+     * @var Basic|Plain|Mysql
      */
     var $auth;
 
@@ -242,7 +242,7 @@ class Helper extends Plugin
 	 */
 	function PMA_blowfish_encrypt($data, $secret)
 	{
-		$pma_cipher = new Auth_Blowfish();
+		$pma_cipher = new Blowfish();
 		$encrypt = '';
 
 		$data .= '_'; // trimming fixed for DokuWiki FS#1690 FS#1713
@@ -272,7 +272,7 @@ class Helper extends Plugin
 	 */
 	function PMA_blowfish_decrypt($encdata, $secret)
 	{
-		$pma_cipher = new Auth_Blowfish();
+		$pma_cipher = new Blowfish();
 		$decrypt = '';
 		$data = base64_decode($encdata);
 
