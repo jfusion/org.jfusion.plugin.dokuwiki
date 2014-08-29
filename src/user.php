@@ -146,14 +146,9 @@ class User extends \JFusion\Plugin\User
             if (!empty($groups)) {
 	            $result->groups = $groups;
 	            $result->groupnames = $groups;
-                // Support as master if using old jfusion plugins.
-	            $result->group_id = $groups[0];
-	            $result->group_name = $groups[0];
             } else {
 	            $result->groups = array();
 	            $result->groupnames = array();
-	            $result->group_id = null;
-	            $result->group_name = null;
             }
 	        $user = new Userinfo($this->getJname());
 	        $user->bind($result);
