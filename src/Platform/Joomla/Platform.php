@@ -422,14 +422,14 @@ PHP;
 		//setup constants needed by Dokuwiki
 		$this->helper->defineConstants();
 
-		$mainframe = Application::getInstance();
+		$mainframe = JFactory::getApplication();
 
 		$do = $mainframe->input->get('do');
 		if ($do == 'logout') {
 			// logout any joomla users
 			$mainframe->logout();
 			//clean up session
-			$session = Session::getInstance();
+			$session = JFactory::getSession();
 			$session->close();
 			$session->restart();
 		} else if ($do == 'login') {
