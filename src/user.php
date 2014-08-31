@@ -233,7 +233,6 @@ class User extends \JFusion\Plugin\User
 			}
             $status[LogLevel::DEBUG][] = $this->addCookie(DOKU_COOKIE, $cookie_value, 60*60*24*365, $cookie_path, $cookie_domain, $cookie_secure, $httponly);
         }
-
         return $status;
     }
 
