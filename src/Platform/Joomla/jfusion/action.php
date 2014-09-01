@@ -222,7 +222,7 @@ class action_plugin_jfusion extends DokuWiki_Action_Plugin {
         require_once $conf['jfusion']['joomla_basepath'] . '/components/com_jfusion/jfusionapi.php';
 	    /**
 	     * @ignore
-	     * @var $joomla \JFusion\Api\Platform_Joomla
+	     * @var $joomla \JFusion\Api\Platform\Joomla
 	     */
 	    $joomla = Platform::getTypeInstance('joomla');
         $mainframe = $joomla->getApplication();

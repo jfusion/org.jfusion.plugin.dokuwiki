@@ -9,6 +9,7 @@
  * @link       http://www.jfusion.org
  */
 
+use JFactory;
 use JFusion\Application\Application;
 use JFusion\Factory;
 use JFusion\Framework;
@@ -16,7 +17,6 @@ use JFusion\Plugin\Platform\Joomla;
 use JFusion\Plugins\dokuwiki\Search;
 use JFusion\Plugins\dokuwiki\Helper;
 
-use JFusion\Session\Session;
 use Joomla\Filesystem\File;
 use Joomla\Filesystem\Folder;
 use Joomla\Filesystem\Path;
