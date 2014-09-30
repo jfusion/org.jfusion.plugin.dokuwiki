@@ -46,8 +46,6 @@ class User extends \JFusion\Plugin\User
      * @return Userinfo|null returns updated userinfo
      */
     function updateUser(Userinfo $userinfo, $overwrite = 0) {
-        // Initialise some variables
-        $userinfo->username = $this->filterUsername($userinfo->username);
         //check to see if a valid $userinfo object was passed on
 	    try {
 			//find out if the user already exists
@@ -128,9 +126,7 @@ class User extends \JFusion\Plugin\User
      * @return null|Userinfo
      */
     function getUser(Userinfo $userinfo) {
-	    $username = $this->filterUsername($userinfo->username);
-
-		$raw_user = $this->helper->auth->getUserData($username);
+		$raw_user = $this->helper->auth->getUserData($userinfo->username);
         if (is_array($raw_user)) {
 	        $result = new stdClass;
 	        $result->block = false;
@@ -245,6 +241,25 @@ class User extends \JFusion\Plugin\User
         $username = str_replace(':', '', $username);
         return strtolower($username);
     }
+
+	/**
+	 * used to validate if a user can be created or not
+	 * should throw exception if user can't be created with info about the error.
+	 *
+	 * @param $userinfo
+	 *
+	 * @return boolean
+	 */
+	function validateUser(Userinfo $userinfo)
+	{
+		if (strpos($userinfo->username, ' ') !== false) {
+			throw new RuntimeException('Invalid Name Character " "');
+		} else if (strpos($userinfo->username, ':') !== false) {
+			throw new RuntimeException('Invalid Name Character ":"');
+		}
+		return true;
+	}
+
 
 	/**
 	 * @param Userinfo $userinfo
