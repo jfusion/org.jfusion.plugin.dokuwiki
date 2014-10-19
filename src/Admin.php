@@ -12,6 +12,7 @@
 
 use JFusion\Framework;
 
+use JFusion\User\Groups;
 use Joomla\Language\Text;
 
 use Psr\Log\LogLevel;
@@ -173,7 +174,7 @@ class Admin extends \JFusion\Plugin\Admin
 	 */
 	function getDefaultUsergroup()
 	{
-		$usergroup = Framework::getUserGroups($this->getJname(), true);
+		$usergroup = Groups::get($this->getJname(), true);
 		return $usergroup;
 	}
 
