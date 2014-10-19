@@ -11,6 +11,7 @@
  */
 
 use JFusion\Framework;
+use JFusion\User\Groups;
 use JFusion\User\Userinfo;
 
 use Joomla\Language\Text;
@@ -86,8 +87,7 @@ class User extends \JFusion\Plugin\User
 				    $this->debugger->addDebug(Text::_('SKIPPED_PASSWORD_UPDATE') . ': ' . Text::_('PASSWORD_UNAVAILABLE'));
 			    }
 			    //check for advanced usergroup sync
-
-			    if (Framework::updateUsergroups($this->getJname())) {
+			    if (Groups::isUpdate($this->getJname())) {
 				    $usergroups = $this->getCorrectUserGroups($userinfo);
 				    if (!empty($usergroups)) {
 					    if (!$this->compareUserGroups($existinguser, $usergroups)) {
