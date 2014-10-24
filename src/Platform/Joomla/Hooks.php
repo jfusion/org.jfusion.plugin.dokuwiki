@@ -15,6 +15,7 @@
  */
 
 use JFusion\Factory;
+use JFusionFunction;
 
 /**
  * JFusion Hooks for dokuwiki

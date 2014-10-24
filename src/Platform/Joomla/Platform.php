@@ -17,6 +17,7 @@ use JFusion\Plugin\Platform\Joomla;
 use JFusion\Plugins\dokuwiki\Search;
 use JFusion\Plugins\dokuwiki\Helper;
 
+use JFusionFunction;
 use Joomla\Filesystem\File;
 use Joomla\Filesystem\Folder;
 use Joomla\Filesystem\Path;

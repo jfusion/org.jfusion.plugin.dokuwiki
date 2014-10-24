@@ -131,9 +131,9 @@ class User extends \JFusion\Plugin\User
 	        $result = new stdClass;
 	        $result->block = false;
 	        $result->activation = null;
-	        $result->userid = $username;
+	        $result->userid = $raw_user['username'];
 	        $result->name = $raw_user['name'];
-	        $result->username = $username;
+	        $result->username = $raw_user['username'];
 	        $result->password = $raw_user['pass'];
 	        $result->email = $raw_user['mail'];
 
