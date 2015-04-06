@@ -48,76 +48,72 @@ class User extends \JFusion\Plugin\User
      */
     function updateUser(Userinfo $userinfo, $overwrite = 0) {
         //check to see if a valid $userinfo object was passed on
-	    try {
-			//find out if the user already exists
-		    $existinguser = $this->getUser($userinfo);
-		    if ($existinguser instanceof Userinfo) {
-			    $changes = array();
-			    //a matching user has been found
-			    $this->debugger->addDebug(Text::_('USER_DATA_FOUND'));
-			    if (strtolower($existinguser->email) != strtolower($userinfo->email)) {
-				    $this->debugger->addDebug(Text::_('EMAIL_CONFLICT'));
-				    $update_email = $this->params->get('update_email', false);
-				    if ($update_email || $overwrite) {
-					    $this->debugger->addDebug(Text::_('EMAIL_CONFLICT_OVERWITE_ENABLED'));
-					    $changes['mail'] = $userinfo->email;
-					    $this->debugger->addDebug(Text::_('EMAIL_UPDATE') . ': ' . $existinguser->email . ' -> ' . $userinfo->email);
-				    } else {
-					    //return a email conflict
-					    $this->debugger->addDebug(Text::_('EMAIL_CONFLICT_OVERWITE_DISABLED'));
-					    $this->debugger->set('userinfo', $existinguser);
-					    throw new RuntimeException(Text::_('EMAIL') . ' ' . Text::_('CONFLICT') . ': ' . $existinguser->email . ' -> ' . $userinfo->email);
-				    }
-			    }
-			    if ($existinguser->name != $userinfo->name) {
-				    $changes['name'] = $userinfo->name;
+	    //find out if the user already exists
+	    $existinguser = $this->getUser($userinfo);
+	    if ($existinguser instanceof Userinfo) {
+		    $changes = array();
+		    //a matching user has been found
+		    $this->debugger->addDebug(Text::_('USER_DATA_FOUND'));
+		    if (strtolower($existinguser->email) != strtolower($userinfo->email)) {
+			    $this->debugger->addDebug(Text::_('EMAIL_CONFLICT'));
+			    $update_email = $this->params->get('update_email', false);
+			    if ($update_email || $overwrite) {
+				    $this->debugger->addDebug(Text::_('EMAIL_CONFLICT_OVERWITE_ENABLED'));
+				    $changes['mail'] = $userinfo->email;
+				    $this->debugger->addDebug(Text::_('EMAIL_UPDATE') . ': ' . $existinguser->email . ' -> ' . $userinfo->email);
 			    } else {
-				    $this->debugger->addDebug(Text::_('SKIPPED_NAME_UPDATE'));
+				    //return a email conflict
+				    $this->debugger->addDebug(Text::_('EMAIL_CONFLICT_OVERWITE_DISABLED'));
+				    $this->debugger->set('userinfo', $existinguser);
+				    throw new RuntimeException(Text::_('EMAIL') . ' ' . Text::_('CONFLICT') . ': ' . $existinguser->email . ' -> ' . $userinfo->email);
 			    }
-			    if (isset($userinfo->password_clear) && strlen($userinfo->password_clear)) {
-				    if (!$this->helper->auth->verifyPassword($userinfo->password_clear, $existinguser->password)) {
-					    // add password_clear to existinguser for the Joomla helper routines
-					    $existinguser->password_clear = $userinfo->password_clear;
-					    $changes['pass'] = $userinfo->password_clear;
-					    $this->debugger->addDebug(Text::_('PASSWORD_UPDATE')  . ': ' . substr($userinfo->password_clear, 0, 6) . '********');
-				    } else {
-					    $this->debugger->addDebug(Text::_('SKIPPED_PASSWORD_UPDATE') . ': ' . Text::_('PASSWORD_VALID'));
-				    }
+		    }
+		    if ($existinguser->name != $userinfo->name) {
+			    $changes['name'] = $userinfo->name;
+		    } else {
+			    $this->debugger->addDebug(Text::_('SKIPPED_NAME_UPDATE'));
+		    }
+		    if (isset($userinfo->password_clear) && strlen($userinfo->password_clear)) {
+			    if (!$this->helper->auth->verifyPassword($userinfo->password_clear, $existinguser->password)) {
+				    // add password_clear to existinguser for the Joomla helper routines
+				    $existinguser->password_clear = $userinfo->password_clear;
+				    $changes['pass'] = $userinfo->password_clear;
+				    $this->debugger->addDebug(Text::_('PASSWORD_UPDATE')  . ': ' . substr($userinfo->password_clear, 0, 6) . '********');
 			    } else {
-				    $this->debugger->addDebug(Text::_('SKIPPED_PASSWORD_UPDATE') . ': ' . Text::_('PASSWORD_UNAVAILABLE'));
-			    }
-			    //check for advanced usergroup sync
-			    if (Groups::isUpdate($this->getJname())) {
-				    $usergroups = $this->getCorrectUserGroups($userinfo);
-				    if (!empty($usergroups)) {
-					    if (!$this->compareUserGroups($existinguser, $usergroups)) {
-						    $changes['grps'] = $usergroups;
-					    } else {
-						    $this->debugger->addDebug(Text::_('SKIPPED_GROUP_UPDATE') . ': ' . Text::_('GROUP_VALID'));
-					    }
-				    } else {
-					    throw new RuntimeException(Text::_('GROUP_UPDATE_ERROR') . ': ' . Text::_('USERGROUP_MISSING'));
-				    }
-			    }
-			    if (count($changes)) {
-				    if (!$this->helper->auth->modifyUser($userinfo->username, $changes)) {
-					    throw new RuntimeException('ERROR: Updating ' . $userinfo->username);
-				    } else {
-					    $this->debugger->set('action', 'updated');
-					    return $this->getUser($userinfo);
-				    }
-			    } else {
-				    $this->debugger->set('action', 'unchanged');
-				    return $existinguser;
+				    $this->debugger->addDebug(Text::_('SKIPPED_PASSWORD_UPDATE') . ': ' . Text::_('PASSWORD_VALID'));
 			    }
 		    } else {
-			    $this->debugger->addDebug(Text::_('NO_USER_FOUND_CREATING_ONE'));
-			    return $this->createUser($userinfo);
+			    $this->debugger->addDebug(Text::_('SKIPPED_PASSWORD_UPDATE') . ': ' . Text::_('PASSWORD_UNAVAILABLE'));
 		    }
-	    } catch (Exception $e) {
-		    $this->debugger->addError($e->getMessage());
+		    //check for advanced usergroup sync
+		    if (Groups::isUpdate($this->getJname())) {
+			    $usergroups = $this->getCorrectUserGroups($userinfo);
+			    if (!empty($usergroups)) {
+				    if (!$this->compareUserGroups($existinguser, $usergroups)) {
+					    $changes['grps'] = $usergroups;
+				    } else {
+					    $this->debugger->addDebug(Text::_('SKIPPED_GROUP_UPDATE') . ': ' . Text::_('GROUP_VALID'));
+				    }
+			    } else {
+				    throw new RuntimeException(Text::_('GROUP_UPDATE_ERROR') . ': ' . Text::_('USERGROUP_MISSING'));
+			    }
+		    }
+		    if (count($changes)) {
+			    if (!$this->helper->auth->modifyUser($userinfo->username, $changes)) {
+				    throw new RuntimeException('ERROR: Updating ' . $userinfo->username);
+			    } else {
+				    $this->debugger->set('action', 'updated');
+				    $existinguser = $this->getUser($userinfo);
+			    }
+		    } else {
+			    $this->debugger->set('action', 'unchanged');
+		    }
+	    } else {
+		    $existinguser = $this->createUser($userinfo);
+		    $this->debugger->set('action', 'created');
+		    $this->debugger->addDebug(Text::_('NO_USER_FOUND_CREATING_ONE'));
 	    }
-	    return null;
+	    return $existinguser;
     }
 
     /**
