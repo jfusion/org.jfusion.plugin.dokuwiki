@@ -231,7 +231,7 @@ if (!defined(\'_JEXEC\'))';
 			$disable = Text::_('MOD_DISABLE');
 			$update = Text::_('MOD_UPDATE');
 			$output = <<<HTML
-            <img src="components/com_jfusion/images/check_good_small.png">{$text}
+            <span class="check" style="color: green;">&#x2714;</span>  {$text}
             <a href="javascript:void(0);" onclick="return JFusion.Plugin.module('redirectMod', 'disable')">{$disable}</a>
             <a href="javascript:void(0);" onclick="return JFusion.Plugin.module('redirectMod', 'reenable')">{$update}</a>
 HTML;
@@ -239,7 +239,7 @@ HTML;
 			$text = Text::_('REDIRECTION_MOD') . ' ' . Text::_('DISABLED') . ': ' . $reason;
 			$enable = Text::_('MOD_ENABLE');
 			$output = <<<HTML
-            <img src="components/com_jfusion/images/check_bad_small.png">{$text}
+            <span class="check" style="color: red;">&#x2716;</span>  {$text}
             <a href="javascript:void(0);" onclick="return JFusion.Plugin.module('redirectMod', 'enable')">{$enable}</a>
 HTML;
 		}
@@ -280,7 +280,7 @@ HTML;
 			$update = Text::_('MOD_UPDATE');
 
 			$output = <<<HTML
-            <img src="components/com_jfusion/images/check_good_small.png">{$text}
+			<span class="check" style="color: green;">&#x2714;</span> {$text}
             <a href="javascript:void(0);" onclick="return JFusion.Plugin.module('authMod', 'disable')">{$disable}</a>
             <a href="javascript:void(0);" onclick="return JFusion.Plugin.module('authMod', 'reenable')">{$update}</a>
 HTML;
@@ -288,7 +288,7 @@ HTML;
 			$text = Text::_('AUTHENTICATION_MOD') . ' ' . Text::_('DISABLED') . ': ' . $reason;
 			$enable = Text::_('MOD_ENABLE');
 			$output = <<<HTML
-            <img src="components/com_jfusion/images/check_bad_small.png">{$text}
+            <span class="check" style="color: red;">&#x2716;</span> {$text}
             <a href="javascript:void(0);" onclick="return JFusion.Plugin.module('authMod', 'enable')">{$enable}</a>
 HTML;
 		}
