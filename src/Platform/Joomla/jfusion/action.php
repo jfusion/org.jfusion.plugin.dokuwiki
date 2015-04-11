@@ -261,8 +261,8 @@ class action_plugin_jfusion extends DokuWiki_Action_Plugin {
             //if already in Joomla framelessly, then do nothing as the getBuffer function will handle login/out
             if (!defined('IN_JOOMLA')) {
                 //define that the phpBB3 JFusion plugin needs to be excluded
-                global $JFusionActivePlugin;
-                $JFusionActivePlugin =(empty($conf['jfusion']['jfusion_plugin_name'])) ? 'dokuwiki' : $conf['jfusion']['jfusion_plugin_name'];
+	            \JFusion\Factory::getStatus()->set('active.plugin', (empty($conf['jfusion']['jfusion_plugin_name'])) ? 'dokuwiki' : $conf['jfusion']['jfusion_plugin_name']);
+
                 // do the login
                 $credentials = array('username' => $username, 'password' => $password);
                 $options = array('entry_url' => JUri::root() . 'index.php?option=com_user&task=login', 'silent' => true);
@@ -288,8 +288,7 @@ class action_plugin_jfusion extends DokuWiki_Action_Plugin {
         global $JFusionActive, $conf;
         if (empty($JFusionActive)) {
             //define that the phpBB3 JFusion plugin needs to be excluded
-            global $JFusionActivePlugin;
-            $JFusionActivePlugin =(empty($conf['jfusion']['jfusion_plugin_name'])) ? 'dokuwiki' : $conf['jfusion']['jfusion_plugin_name'];
+	        \JFusion\Factory::getStatus()->set('active.plugin', (empty($conf['jfusion']['jfusion_plugin_name'])) ? 'dokuwiki' : $conf['jfusion']['jfusion_plugin_name']);
             $mainframe = $this->startJoomla();
 
             //if already in Joomla frameless, then do nothing as the getBuffer function will handle login / out
