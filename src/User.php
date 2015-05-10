@@ -18,7 +18,6 @@ use Joomla\Language\Text;
 
 use Psr\Log\LogLevel;
 
-use \Exception;
 use \RuntimeException;
 use \stdClass;
 

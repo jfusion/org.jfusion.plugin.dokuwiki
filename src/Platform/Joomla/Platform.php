@@ -403,7 +403,7 @@ PHP;
 	}
 
 	/**
-	 * @param object $data
+	 * @param object $jfdata
 	 *
 	 * @return void
 	 */
