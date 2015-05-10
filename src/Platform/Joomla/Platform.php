@@ -492,20 +492,15 @@ PHP;
 		}
 	}
 
-	/**
-	 * @param object $data
-	 *
-	 * @return void
-	 */
-	function parseBody(&$data) {
+	function parseBody() {
 		$regex_body = array();
 		$replace_body = array();
 		$callback_body = array();
 
-		$uri = new Uri($data->integratedURL);
+		$uri = new Uri($this->data->integratedURL);
 		$path = $uri->getPath();
 
-		$regex_body[] = '#(href|action|src)=["\']' . preg_quote($data->integratedURL, '#') . '(.*?)["\']#mS';
+		$regex_body[] = '#(href|action|src)=["\']' . preg_quote($this->data->integratedURL, '#') . '(.*?)["\']#mS';
 		$replace_body[] = '$1="/$2"';
 		$callback_body[] = '';
 
@@ -514,19 +509,19 @@ PHP;
 		$callback_body[] = '';
 
 		$regex_body[] = '#(href)=["\']/feed.php["\']#mS';
-		$replace_body[] = '$1="' . $data->integratedURL . 'feed.php"';
+		$replace_body[] = '$1="' . $this->data->integratedURL . 'feed.php"';
 		$callback_body[] = '';
 
 		$regex_body[] = '#href=["\']/(lib/exe/fetch.php)(.*?)["\']#mS';
-		$replace_body[] = 'href="' . $data->integratedURL . '$1$2"';
+		$replace_body[] = 'href="' . $this->data->integratedURL . '$1$2"';
 		$callback_body[] = '';
 
 		$regex_body[] = '#href=["\']/(_media/)(.*?)["\']#mS';
-		$replace_body[] = 'href="' . $data->integratedURL . '$1$2"';
+		$replace_body[] = 'href="' . $this->data->integratedURL . '$1$2"';
 		$callback_body[] = '';
 
 		$regex_body[] = '#href=["\']/(lib/exe/mediamanager.php)(.*?)["\']#mS';
-		$replace_body[] = 'href="' . $data->integratedURL . '$1$2"';
+		$replace_body[] = 'href="' . $this->data->integratedURL . '$1$2"';
 		$callback_body[] = '';
 
 		$regex_body[] = '#(?<=href=["\'])(?!\w{0,10}://|\w{0,10}:)(.*?)(?=["\'])#mSi';
@@ -534,47 +529,42 @@ PHP;
 		$callback_body[] = 'fixUrl';
 
 		$regex_body[] = '#(src)=["\'][./|/](.*?)["\']#mS';
-		$replace_body[] = '$1="' . $data->integratedURL . '$2"';
+		$replace_body[] = '$1="' . $this->data->integratedURL . '$2"';
 		$callback_body[] = '';
 
 		foreach ($regex_body as $k => $v) {
 			//check if we need to use callback
 			if(!empty($callback_body[$k])){
-				$data->body = preg_replace_callback($regex_body[$k], array(&$this, $callback_body[$k]), $data->body);
+				$this->data->body = preg_replace_callback($regex_body[$k], array(&$this, $callback_body[$k]), $this->data->body);
 			} else {
-				$data->body = preg_replace($regex_body[$k], $replace_body[$k], $data->body);
+				$this->data->body = preg_replace($regex_body[$k], $replace_body[$k], $this->data->body);
 			}
 		}
 
-		$this->replaceForm($data);
+		$this->replaceForm();
 	}
 
-	/**
-	 * @param object $data
-	 *
-	 * @return void
-	 */
-	function parseHeader(&$data) {
+	function parseHeader() {
 		static $regex_header, $replace_header;
 		if (!$regex_header || !$replace_header) {
 			// Define our preg arrays
 			$regex_header = array();
 			$replace_header = array();
 			/*
-			$uri = new JUri($data->integratedURL);
+			$uri = new JUri($this->data->integratedURL);
 			$path = $uri->getPath();
 
-			$regex_header[]    = '#(href|src)=["\']'.preg_quote($data->integratedURL, '#').'(.*?)["\']#mS';
+			$regex_header[]    = '#(href|src)=["\']'.preg_quote($this->data->integratedURL, '#').'(.*?)["\']#mS';
 			$replace_header[]    = '$1="/$2"';
 			$regex_header[]    = '#(href|src)=["\']'.preg_quote($path, '#').'(.*?)["\']#mS';
 			$replace_header[]    = '$1="/$2"';
 
 			//convert relative links into absolute links
 			$regex_header[]    = '#(href|src)=["\'][./|/](.*?)["\']#mS';
-			$replace_header[] = '$1="' . $data->integratedURL . '$2"';
+			$replace_header[] = '$1="' . $this->data->integratedURL . '$2"';
 			*/
 		}
-		$data->header = preg_replace($regex_header, $replace_header, $data->header);
+		$this->data->header = preg_replace($regex_header, $replace_header, $this->data->header);
 	}
 
 	/**
@@ -658,10 +648,7 @@ PHP;
 		$url = str_replace($order, $replace, $url);
 	}
 
-	/**
-	 * @param $data
-	 */
-	function replaceForm(&$data) {
+	function replaceForm() {
 		$pattern = '#<form(.*?)action=["\'](.*?)["\'](.*?)>(.*?)</form>#mSsi';
 		$getData = '';
 		$mainframe = Application::getInstance();
@@ -669,7 +656,7 @@ PHP;
 		if ($mainframe->input->get('option')) $getData.= '<input name="option" value="' . $mainframe->input->get('option') . '" type="hidden"/>';
 		if ($mainframe->input->get('jname')) $getData.= '<input name="jname" value="' . $mainframe->input->get('jname') . '" type="hidden"/>';
 		if ($mainframe->input->get('view')) $getData.= '<input name="view" value="' . $mainframe->input->get('view') . '" type="hidden"/>';
-		preg_match_all($pattern, $data->body, $links);
+		preg_match_all($pattern, $this->data->body, $links);
 		foreach ($links[2] as $key => $value) {
 			$method = '#method=["\']post["\']#mS';
 			$is_get = true;
@@ -678,7 +665,7 @@ PHP;
 			}
 			$value = $this->fixUrl(array(1 => $links[2][$key]));
 			if ($is_get && substr($value, -1) != DIRECTORY_SEPARATOR) $links[4][$key] = $getData . $links[4][$key];
-			$data->body = str_replace($links[0][$key], '<form' . $links[1][$key] . 'action="' . $value . '"' . $links[3][$key] . '>' . $links[4][$key] . '</form>', $data->body);
+			$this->data->body = str_replace($links[0][$key], '<form' . $links[1][$key] . 'action="' . $value . '"' . $links[3][$key] . '>' . $links[4][$key] . '</form>', $this->data->body);
 		}
 	}
 
